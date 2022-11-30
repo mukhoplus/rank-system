@@ -11,3 +11,6 @@ public class RankSystemApplication {
 	}
 
 }
+
+// Use snapshot
+// java -jar build/libs/rank-system-0.0.1-SNAPSHOT.jar
