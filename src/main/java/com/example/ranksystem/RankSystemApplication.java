@@ -2,6 +2,7 @@ package com.example.ranksystem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @SpringBootApplication
 public class RankSystemApplication {
@@ -12,5 +13,7 @@ public class RankSystemApplication {
 
 }
 
-// Use snapshot
-// java -jar build/libs/rank-system-0.0.1-SNAPSHOT.jar
+/* Use snapshot
+./gradlew build
+java -jar build/libs/rank-system-0.0.1-SNAPSHOT.jar
+ */
