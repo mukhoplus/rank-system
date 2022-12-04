@@ -4,10 +4,9 @@ import com.example.ranksystem.Entity.SignUpForm;
 import com.example.ranksystem.Entity.User;
 import com.example.ranksystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -37,8 +36,19 @@ public class SignUpController {
             User newUser = new User(newId, newPassword, newName, false);
             userRepository.save(newUser);
 
+            response.addCookie(makeCookie("id", newUser.getId()));
+            response.addCookie(makeCookie("name", newUser.getName()));
+            response.addCookie(makeCookie("permission", "false"));
+
             out.println("<script>alert('회원가입이 완료되었습니다.'); location.replace('/');</script>");
         }
         out.flush();
+    }
+
+    public Cookie makeCookie(String name, String value){
+        Cookie cookie = new Cookie(name, value);
+        cookie.setMaxAge(1800);
+        cookie.setPath("/");
+        return cookie;
     }
 }

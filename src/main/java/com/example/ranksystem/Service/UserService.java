@@ -11,6 +11,4 @@ public class UserService {
         return userRepository.existsById(id);
     }
 
-
-
 }

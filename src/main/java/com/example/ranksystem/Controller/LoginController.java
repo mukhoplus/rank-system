@@ -4,11 +4,10 @@ import com.example.ranksystem.Entity.LoginForm;
 import com.example.ranksystem.Entity.User;
 import com.example.ranksystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,16 +42,27 @@ public class LoginController {
             if(!inputPassword.equals(cmpUser.getPassword())){
                 out.println(makeScript("아이디 또는 비밀번호를 잘못 입력했습니다."));
             } else{
-                /*
-                세션 처리
-                 */
-                out.println("<script>location.href='/';</script>");
+                response.addCookie(makeCookie("id", cmpUser.getId()));
+                response.addCookie(makeCookie("name", cmpUser.getName()));
+                String permission = cmpUser.getPermission() == true ? "true" : "false";
+                response.addCookie(makeCookie("permission", permission));
+
+                out.println("<script>alert('" + cmpUser.getId() + "님 반갑습니다!'); location.href='/';</script>");
             }
         }
         out.flush();
     }
-    
+
+    public Cookie makeCookie(String name, String value){
+        Cookie cookie = new Cookie(name, value);
+        cookie.setMaxAge(1800);
+        cookie.setPath("/");
+        return cookie;
+    }
+
     public String makeScript(String content){
         return "\"<script>alert('" + content + "'); location.href='/login';</script>\"";
     }
+
+
 }

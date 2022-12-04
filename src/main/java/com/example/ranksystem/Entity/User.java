@@ -32,6 +32,9 @@ public class User {
     @Column(name = "name", length = 10)
     private String name;
 
+    @Column(name = "permission")
+    private Boolean permission;
+
     public String getId() {
         return id;
     }
@@ -63,8 +66,5 @@ public class User {
     public void setPermission(Boolean permission) {
         this.permission = permission;
     }
-
-    @Column(name = "permission")
-    private Boolean permission;
 
 }
