@@ -5,6 +5,7 @@ import com.example.ranksystem.Entity.User;
 import com.example.ranksystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.example.ranksystem.Service.TimeService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -40,9 +41,12 @@ public class SignUpController {
             response.addCookie(makeCookie("name", newUser.getName()));
             response.addCookie(makeCookie("permission", "false"));
 
+            TimeService logTime = new TimeService();
+            System.out.println(logTime.getLogTime() + newId + "(" + newName + ") 회원가입");
             out.println("<script>alert('회원가입이 완료되었습니다.'); location.replace('/');</script>");
         }
         out.flush();
+        out.close();
     }
 
     public Cookie makeCookie(String name, String value){

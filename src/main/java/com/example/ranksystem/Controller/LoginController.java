@@ -2,6 +2,7 @@ package com.example.ranksystem.Controller;
 
 import com.example.ranksystem.Entity.LoginForm;
 import com.example.ranksystem.Entity.User;
+import com.example.ranksystem.Service.TimeService;
 import com.example.ranksystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -47,10 +48,13 @@ public class LoginController {
                 String permission = cmpUser.getPermission() == true ? "true" : "false";
                 response.addCookie(makeCookie("permission", permission));
 
-                out.println("<script>alert('" + cmpUser.getId() + "님 반갑습니다!'); location.href='/';</script>");
+                TimeService logTime = new TimeService();
+                System.out.println(logTime.getLogTime() + cmpUser.getId() + "(" + cmpUser.getName() + ") 로그인");
+                out.println("<script>alert('" + cmpUser.getName() + "님 반갑습니다!'); location.href='/';</script>");
             }
         }
         out.flush();
+        out.close();
     }
 
     public Cookie makeCookie(String name, String value){

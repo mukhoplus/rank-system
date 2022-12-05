@@ -1,5 +1,6 @@
 package com.example.ranksystem.Controller;
 
+import com.example.ranksystem.Entity.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,27 +11,30 @@ import java.io.IOException;
 @RestController
 public class HelloController {
 
-    @GetMapping("/main")
-    public String test(HttpServletRequest request) throws IOException{
-        String text = "반갑습니다";
+    @GetMapping("/hello")
+    public User hello(HttpServletRequest request) throws IOException{
+
+        String curId = "";
         String curName = "";
+        String curPermission = "";
 
         if (request.getCookies() != null) {
             Cookie[] currentCookies = request.getCookies();
 
             for (Cookie c : currentCookies) {
-                if (c.getName().equals("name") && c.getValue() != null) {
+                if (c.getName().equals("id")) {
+                    curId = c.getValue();
+                } else if(c.getName().equals("name")){
                     curName = c.getValue();
-                    break;
+                } else if(c.getName().equals("permission")){
+                    curPermission = c.getValue();
                 }
             }
         }
 
-        if (curName == null || curName.equals("")) {
-            return text + ".";
-        }
-        else{
-            return text + ", " + curName + "님!";
-        }
+        boolean returnPermission = curPermission == "false" ? false : true;
+        User returnUser = new User(curId, null, curName, returnPermission);
+
+        return returnUser;
     }
 }
