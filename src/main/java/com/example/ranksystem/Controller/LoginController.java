@@ -30,9 +30,9 @@ public class LoginController {
         String inputId = form.getId();
         String inputPassword = form.getPassword();
 
-        if(inputId == ""){
+        if(inputId.equals("")){
             out.println(makeScript("아이디를 입력해주세요."));
-        } else if(inputPassword == ""){
+        } else if(inputPassword.equals("")){
             out.println(makeScript("비밀번호를 입력해주세요."));
         } else if (!userRepository.existsById(inputId) ) {
             out.println(makeScript("아이디 또는 비밀번호를 잘못 입력했습니다."));
@@ -44,8 +44,7 @@ public class LoginController {
             } else{
                 response.addCookie(makeCookie("id", cmpUser.getId()));
                 response.addCookie(makeCookie("name", cmpUser.getName()));
-                String permission = cmpUser.getPermission() == true ? "true" : "false";
-                response.addCookie(makeCookie("permission", permission));
+                response.addCookie(makeCookie("permission", cmpUser.getPermission()));
 
                 TimeService logTime = new TimeService();
                 System.out.println(logTime.getLogTime() + cmpUser.getId() + "(" + cmpUser.getName() + ") 로그인");

@@ -1,13 +1,14 @@
 package com.example.ranksystem.Entity;
 
-import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
+import java.io.Serializable;
 
 @Entity
-public class Gamer {
+@IdClass(Gamer.class)
+public class Gamer implements Serializable {
     public Gamer(){
 
     }
@@ -19,14 +20,15 @@ public class Gamer {
         this.loses = loses;
     }
     public Gamer(String name, String race){
-        this.setName(name);
-        this.setRace(race);
+        this.name = name;
+        this.race = race;
     }
 
     @Id
     @Column(name = "name", length = 10)
     private String name;
 
+    @Id
     @Column(name = "race", length = 7)
     private String race;
 
@@ -47,7 +49,7 @@ public class Gamer {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {

@@ -1,13 +1,8 @@
 package com.example.ranksystem.Entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
 public class User {
@@ -15,7 +10,7 @@ public class User {
     public User(){
 
     }
-    public User(String id, String password, String name, Boolean permission){
+    public User(String id, String password, String name, String permission){
         this.id = id;
         this.password = password;
         this.name = name;
@@ -32,8 +27,8 @@ public class User {
     @Column(name = "name", length = 10)
     private String name;
 
-    @Column(name = "permission")
-    private Boolean permission;
+    @Column(name = "permission", length = 5)
+    private String permission = "false";
 
     public String getId() {
         return id;
@@ -59,11 +54,11 @@ public class User {
         this.name = name;
     }
 
-    public Boolean getPermission() {
+    public String getPermission() {
         return permission;
     }
 
-    public void setPermission(Boolean permission) {
+    public void setPermission(String permission) {
         this.permission = permission;
     }
 

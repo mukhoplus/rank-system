@@ -32,8 +32,7 @@ public class HelloController {
             }
         }
 
-        boolean returnPermission = curPermission == "false" ? false : true;
-        User returnUser = new User(curId, null, curName, returnPermission);
+        User returnUser = new User(curId, null, curName, curPermission);
 
         return returnUser;
     }

@@ -19,9 +19,7 @@ public class AddGamerController {
     private GamerRepository gamerRepository;
 
     @Autowired
-    public AddGamerController(GamerRepository gamerRepository){
-        this.gamerRepository = gamerRepository;
-    }
+    public AddGamerController(GamerRepository gamerRepository) { this.gamerRepository = gamerRepository; }
 
     @PostMapping()
     public void addgamer(@ModelAttribute AddGamerForm form, HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -42,6 +40,7 @@ public class AddGamerController {
         }
 
         String inputName = form.getName();
+
         if (inputName == "") {
             out.println(makeScript("이름를 입력해주세요."));
         } else if (gamerRepository.existsByName(inputName)) {
@@ -54,9 +53,8 @@ public class AddGamerController {
             }
             TimeService logTime = new TimeService();
             System.out.println(logTime.getLogTime() + inputName + " 선수 추가(" + adder + ")");
-            out.println("<script>alert('" + inputName + "선수가 추가되었습니다.'); location.href='/';</script>");
+            out.println("<script>alert('" + inputName + " 선수가 추가되었습니다.'); location.href='/';</script>");
         }
-
         out.flush();
         out.close();
     }

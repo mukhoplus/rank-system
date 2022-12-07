@@ -34,12 +34,12 @@ public class SignUpController {
         if (userRepository.existsById(newId)) {
             out.println("<script>alert('중복된 아이디입니다.'); location.href='/signup';</script>");
         } else {
-            User newUser = new User(newId, newPassword, newName, false);
+            User newUser = new User(newId, newPassword, newName, "false");
             userRepository.save(newUser);
 
             response.addCookie(makeCookie("id", newUser.getId()));
             response.addCookie(makeCookie("name", newUser.getName()));
-            response.addCookie(makeCookie("permission", "false"));
+            response.addCookie(makeCookie("permission", newUser.getPermission()));
 
             TimeService logTime = new TimeService();
             System.out.println(logTime.getLogTime() + newId + "(" + newName + ") 회원가입");
