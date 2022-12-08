@@ -51,7 +51,7 @@ public class SignUpController {
 
     public Cookie makeCookie(String name, String value){
         Cookie cookie = new Cookie(name, value);
-        cookie.setMaxAge(1800);
+        cookie.setMaxAge(600);
         cookie.setPath("/");
         return cookie;
     }
