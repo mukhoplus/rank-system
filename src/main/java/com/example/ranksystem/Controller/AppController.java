@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 @Controller
 public class AppController {
 
-    @GetMapping(value = {"/login", "/signup", "/addgamer"})
+    @GetMapping(value = {"/login", "/signup", "/addgamer", "/addgame"})
     public String handleError(){
         return "forward:/index.html";
     }

@@ -88,12 +88,4 @@ public class Gamer implements Serializable {
         this.loses = loses;
     }
 
-    public double calcRating(double myRating, double enemyRating, int isWin){
-        return myRating + 20 * (isWin - calcEWR(myRating, enemyRating));
-    }
-
-    // Calculating expected winning rate
-    public double calcEWR(double myRating, double enemyRating){
-        return 1 / ( Math.pow(10, (enemyRating-myRating)/400) + 1);
-    }
 }
