@@ -1,6 +1,5 @@
 package com.example.ranksystem.Controller;
 
-import com.example.ranksystem.Entity.Game;
 import com.example.ranksystem.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
