@@ -59,20 +59,16 @@ public class AddGameController {
         Gamer loser = gamerRepository.findByNameAndRace(lose_user, lose_race);
 
         double win_point = calcRating(winner.getRating(), loser.getRating(), 1);
-        double lose_point = calcRating(winner.getRating(), loser.getRating(), 0);
+        double lose_point = calcRating(loser.getRating(), winner.getRating(), 0);
         double game_point = win_point - winner.getRating();
 
-        // 선수 정보 갱신
-        winner.setRating(win_point);
-        winner.increaseWin();
-        loser.setRating(lose_point);
-        loser.increaseLose();
-//        gamerRepository.save(winner);
-//        gamerRepository.save(loser);
+        // 선수 정보 갱신 -> 이때, Gamer 객체에 직접 값을 변경시키려는 시도를 하면 오류 발생
+        gamerRepository.save_w(win_user, win_race, win_point, winner.getWins() + 1);
+        gamerRepository.save_l(lose_user, lose_race, lose_point, loser.getLoses() + 1);
 
         // 전적 추가
         Game newGame = new Game(win_user, win_race, lose_user, lose_race, game_point, writer);
-//        gameRepository.save(newGame);
+        gameRepository.save(newGame);
 
         String output = win_user + "(" + win_race + "):" + lose_user + "(" + lose_race + ")";
         TimeService logTime = new TimeService();
