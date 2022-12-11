@@ -1,1 +1,7 @@
-# ESPers Starcraft ELO Ranking System
+# Rank-System
+
+ESPers Starcraft Ranking System
+
+## 
+
+### 
