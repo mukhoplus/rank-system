@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping(value = "/games")
-public class GamesController {
+@RequestMapping(value = "/getgames")
+public class GetGamesController {
     private GameRepository gameRepository;
 
     @Autowired
-    public GamesController(GameRepository gameRepository){
+    public GetGamesController(GameRepository gameRepository){
         this.gameRepository = gameRepository;
     }
 
