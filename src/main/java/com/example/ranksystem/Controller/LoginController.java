@@ -57,7 +57,7 @@ public class LoginController {
 
     public Cookie makeCookie(String name, String value){
         Cookie cookie = new Cookie(name, value);
-        cookie.setMaxAge(600);
+        cookie.setMaxAge(1200);
         cookie.setPath("/");
         return cookie;
     }

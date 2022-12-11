@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RestController
@@ -19,6 +20,7 @@ public class HelloController {
         String curPermission = "";
 
         if (request.getCookies() != null) {
+
             Cookie[] currentCookies = request.getCookies();
 
             for (Cookie c : currentCookies) {
