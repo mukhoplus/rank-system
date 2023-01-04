@@ -19,7 +19,7 @@ public class NameRank {
 
     @Id
     private String name;
-    private double rating = 1200.0;
+    private double rating = 1000.0;
     private int wins = 0;
     private int loses = 0;
     private double win_rate = 0;

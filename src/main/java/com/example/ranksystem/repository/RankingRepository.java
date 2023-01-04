@@ -1,12 +1,10 @@
 package com.example.ranksystem.repository;
 
-import com.example.ranksystem.Entity.GamerID;
 import com.example.ranksystem.Entity.Rank;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Id;
 import java.util.List;
 
 @Repository

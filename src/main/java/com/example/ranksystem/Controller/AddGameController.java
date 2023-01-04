@@ -84,7 +84,7 @@ public class AddGameController {
     }
 
     public double calcRating(double myRating, double enemyRating, int isWin){
-        return myRating + 20 * (isWin - calcEWR(myRating, enemyRating));
+        return myRating + 40 * (isWin - calcEWR(myRating, enemyRating));
     }
 
     // Calculating expected winning rate

@@ -33,7 +33,7 @@ public class Gamer implements Serializable {
     private String race;
 
     @Column(name = "rating")
-    private double rating = 1200.0;
+    private double rating = 1000.0;
 
     @Column(name = "wins")
     private int wins = 0;
