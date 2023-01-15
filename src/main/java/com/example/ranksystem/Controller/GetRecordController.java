@@ -25,9 +25,9 @@ public class GetRecordController {
         ArrayList<ArrayList> records = new ArrayList<>();
 
         if(gamerRepository.existsByName(name)){
-            records.add(gamerRepository.getGamerRecordByRace(name, "Zerg"));
-            records.add(gamerRepository.getGamerRecordByRace(name, "Protoss"));
             records.add(gamerRepository.getGamerRecordByRace(name, "Terran"));
+            records.add(gamerRepository.getGamerRecordByRace(name, "Protoss"));
+            records.add(gamerRepository.getGamerRecordByRace(name, "Zerg"));
         }
 
         return records;
