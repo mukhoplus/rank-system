@@ -8,7 +8,7 @@ ESPers Starcraft Ranking System
 
 1.4.0
 
-### How To Run
+## How To Run
 
 1. ``git clone https://github.com/mukhoplus/rank-system.git``
 2. ``cd ./src/main/``
