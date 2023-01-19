@@ -14,5 +14,5 @@ public class RankSystemApplication {
 
 /* Use snapshot
 ./gradlew build
-java -jar build/libs/rank-system-1.4.1.-SNAPSHOT.jar
+java -jar build/libs/rank-system-1.4.2.-SNAPSHOT.jar
  */
