@@ -41,7 +41,7 @@ public class AddGamerController {
 
         String inputName = form.getName();
 
-        if (inputName == "") {
+        if (inputName == null || inputName.equals("")) {
             out.println(makeScript("이름를 입력해주세요."));
         } else if (gamerRepository.existsByName(inputName)) {
             out.println(makeScript("이미 등록된 선수입니다."));
