@@ -6,7 +6,7 @@ ESPers Starcraft Ranking System
 
 ## Version
 
-1.4.3
+1.4.4
 
 ## How To Run
 
