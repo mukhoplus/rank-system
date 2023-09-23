@@ -1,18 +1,34 @@
 package com.mukho.ranksystem.Dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class LoginFormDto {
 
-    private String id;
+	private String id;
 
-    private String password;
+	private String password;
+
+	public LoginFormDto() {
+
+	}
+
+	public LoginFormDto(String id, String password) {
+		this.id = id;
+		this.password = password;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 }

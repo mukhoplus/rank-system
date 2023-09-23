@@ -1,23 +1,25 @@
 package com.mukho.ranksystem.Controller;
 
-import com.mukho.ranksystem.Dto.RankDto;
-import com.mukho.ranksystem.Repository.RankingRepository;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.mukho.ranksystem.Dto.RankDto;
+import com.mukho.ranksystem.Repository.RankingRepository;
 
 @RestController
 @RequestMapping("/ranking")
 public class RankingController {
 
-	@Autowired
 	private RankingRepository rankingRepository;
+
+	public RankingController(RankingRepository rankingRepository) {
+		this.rankingRepository = rankingRepository;
+	}
 
 	/**
 	 * 전적이 있는 gamer 중,

@@ -1,7 +1,7 @@
 package com.mukho.ranksystem.Controller;
 
-import com.mukho.ranksystem.Repository.GameRepository;
-import com.mukho.ranksystem.Repository.GamerRepository;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.mukho.ranksystem.Repository.GameRepository;
+import com.mukho.ranksystem.Repository.GamerRepository;
 
+@SuppressWarnings("unchecked")
 @RestController
 @RequestMapping("getrelative")
 public class RelativeController {

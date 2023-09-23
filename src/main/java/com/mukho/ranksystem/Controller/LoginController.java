@@ -1,20 +1,23 @@
 package com.mukho.ranksystem.Controller;
 
-import com.mukho.ranksystem.Dto.LoginFormDto;
-import com.mukho.ranksystem.Model.User;
-import com.mukho.ranksystem.Utils.TimeUtil;
-import com.mukho.ranksystem.Repository.UserRepository;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.mukho.ranksystem.Dto.LoginFormDto;
+import com.mukho.ranksystem.Model.User;
+import com.mukho.ranksystem.Repository.UserRepository;
+import com.mukho.ranksystem.Utils.TimeUtil;
 
 @RestController
 @RequestMapping("/login")

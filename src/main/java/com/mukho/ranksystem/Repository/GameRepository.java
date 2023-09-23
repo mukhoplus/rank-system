@@ -1,12 +1,12 @@
 package com.mukho.ranksystem.Repository;
 
-import com.mukho.ranksystem.Model.Game;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.mukho.ranksystem.Model.Game;
 
 @Repository
 public interface GameRepository extends CrudRepository<Game, Long> {

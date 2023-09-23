@@ -1,6 +1,10 @@
 package com.mukho.ranksystem.Controller;
 
-import com.mukho.ranksystem.Utils.TimeUtil;
+import java.io.IOException;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,11 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.io.IOException;
+import com.mukho.ranksystem.Utils.TimeUtil;
 
 @RestController
 @RequestMapping("logout")

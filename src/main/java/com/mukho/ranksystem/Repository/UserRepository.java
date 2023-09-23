@@ -1,7 +1,8 @@
 package com.mukho.ranksystem.Repository;
 
-import com.mukho.ranksystem.Model.User;
 import org.springframework.data.repository.CrudRepository;
+
+import com.mukho.ranksystem.Model.User;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 

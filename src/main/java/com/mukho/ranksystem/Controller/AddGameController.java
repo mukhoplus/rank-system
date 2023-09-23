@@ -1,11 +1,11 @@
 package com.mukho.ranksystem.Controller;
 
-import com.mukho.ranksystem.Dto.AddGameFormDto;
-import com.mukho.ranksystem.Model.Game;
-import com.mukho.ranksystem.Model.Gamer;
-import com.mukho.ranksystem.Utils.TimeUtil;
-import com.mukho.ranksystem.Repository.GameRepository;
-import com.mukho.ranksystem.Repository.GamerRepository;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.io.IOException;
-import java.io.PrintWriter;
+import com.mukho.ranksystem.Dto.AddGameFormDto;
+import com.mukho.ranksystem.Model.Game;
+import com.mukho.ranksystem.Model.Gamer;
+import com.mukho.ranksystem.Repository.GameRepository;
+import com.mukho.ranksystem.Repository.GamerRepository;
+import com.mukho.ranksystem.Utils.TimeUtil;
 
 @RestController
 @RequestMapping(value = "/addgame")
@@ -54,10 +54,10 @@ public class AddGameController {
 			}
 		}
 
-		String winUser = form.getWin_user();
-		String winRace = form.getWin_race();
-		String loseUser = form.getLose_user();
-		String loseRace = form.getLose_race();
+		String winUser = form.getWinUser();
+		String winRace = form.getWinRace();
+		String loseUser = form.getLoseUser();
+		String loseRace = form.getLoseRace();
 
 		// DB에서 winner와 loser gamer 정보 가져오기
 		Gamer winner = gamerRepository.findByNameAndRace(winUser, winRace);

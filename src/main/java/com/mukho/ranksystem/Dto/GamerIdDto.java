@@ -1,17 +1,9 @@
 package com.mukho.ranksystem.Dto;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import java.io.Serializable;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+import lombok.EqualsAndHashCode;
+
 @EqualsAndHashCode
 public class GamerIdDto implements Serializable {
 
@@ -19,4 +11,28 @@ public class GamerIdDto implements Serializable {
 
 	private String race;
 
+	public GamerIdDto() {
+
+	}
+
+	public GamerIdDto(String name, String race) {
+		this.name = name;
+		this.race = race;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getRace() {
+		return race;
+	}
+
+	public void setRace(String race) {
+		this.race = race;
+	}
 }

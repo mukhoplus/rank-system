@@ -1,6 +1,9 @@
 package com.mukho.ranksystem.Controller;
 
-import com.mukho.ranksystem.Model.User;
+import java.io.IOException;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,17 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-
-import java.io.IOException;
+import com.mukho.ranksystem.Dto.UserInfoDto;
 
 @RestController
 @RequestMapping("/hello")
 public class HelloController {
 
 	@GetMapping
-	public ResponseEntity<User> hello(HttpServletRequest request) throws IOException {
+	public ResponseEntity<UserInfoDto> hello(HttpServletRequest request) throws IOException {
 
 		String curId = "";
 		String curName = "";
@@ -45,9 +45,9 @@ public class HelloController {
 			}
 		}
 
-		User returnUser = new User(curId, null, curName, curPermission);
+		UserInfoDto userInfo = new UserInfoDto(curId, curName, curPermission);
 
-		return new ResponseEntity<>(returnUser, HttpStatus.OK);
+		return new ResponseEntity<>(userInfo, HttpStatus.OK);
 	}
 
 }
