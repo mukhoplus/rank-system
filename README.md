@@ -6,7 +6,6 @@ ESPers Starcraft Ranking System
 
 ![image](https://github.com/mukhoplus/rank-system/assets/67003627/ac8e7f25-81fa-4742-bd5b-54640b070503)
 
-
 ## Version
 
 2.0.0
@@ -16,5 +15,6 @@ ESPers Starcraft Ranking System
 1. ``git clone https://github.com/mukhoplus/rank-system.git``
 2. ``cd ./src/main/``
 3. ``git clone https://github.com/mukhoplus/rank-system_front.git frontend``
-4. Set database tables.
-5. Run spring boot server.
+4. `npm i`
+5. Set database tables.
+6. Run spring boot server.
