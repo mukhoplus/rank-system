@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,43 +21,20 @@ public class LogoutController {
 
 	@DeleteMapping
 	public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		HttpSession session = request.getSession();
 		response.setContentType("text/html; charset=UTF-8");
-
-		if (request.getCookies() != null) {
-			String curId = "";
-			String curName = "";
-
-			Cookie[] currentCookies = request.getCookies();
-
-			for (Cookie c : currentCookies) {
-				if (c.getName().equals("id")) {
-					curId = c.getValue();
-					continue;
-				}
-
-				if (c.getName().equals("name")) {
-					curName = c.getValue();
-				}
-			}
+		try {
+			String curId = session.getAttribute("id").toString();
+			String curName = session.getAttribute("name").toString();
 
 			TimeUtil logTime = TimeUtil.getInstance();
 			System.out.println(logTime.getLogTime() + curId + "(" + curName + ") 로그아웃");
 
-			response.addCookie(delCookie("id", null));
-			response.addCookie(delCookie("name", null));
-			response.addCookie(delCookie("permission", null));
-
+			session.invalidate();
 			return new ResponseEntity<>(HttpStatus.OK);
-		} else {
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-	}
-
-	public Cookie delCookie(String name, String value) {
-		Cookie cookie = new Cookie(name, value);
-		cookie.setMaxAge(0);
-		cookie.setPath("/");
-		return cookie;
 	}
 
 }

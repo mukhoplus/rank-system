@@ -12,7 +12,9 @@ import com.mukho.ranksystem.Repository.UserRepository;
 import com.mukho.ranksystem.Service.UserService;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
 
 @Service
@@ -28,7 +30,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean login(LoginFormDto form, HttpServletResponse response, PrintWriter out) {
+    public boolean login(LoginFormDto form, HttpServletRequest request, HttpServletResponse response, PrintWriter out) {
+        HttpSession session = request.getSession();
+
         boolean isLogin = false;
 
         String inputId = form.getId();
@@ -46,9 +50,9 @@ public class UserServiceImpl implements UserService {
             if (!passwordEncoder.matches(inputPassword, cmpUser.getPassword())) {
                 out.println(makeScript("아이디 또는 비밀번호를 잘못 입력했습니다.", "login"));
             } else {
-                response.addCookie(makeCookie("id", cmpUser.getId(), 1200));
-                response.addCookie(makeCookie("name", cmpUser.getName(), 1200));
-                response.addCookie(makeCookie("permission", cmpUser.getPermission(), 1200));
+                session.setAttribute("id", cmpUser.getId());
+                session.setAttribute("name", cmpUser.getName());
+                session.setAttribute("permission", cmpUser.getPermission());
 
                 TimeUtil logTime = TimeUtil.getInstance();
                 System.out.println(logTime.getLogTime() + cmpUser.getId() + "(" + cmpUser.getName() + ") 로그인");
@@ -61,7 +65,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean signup(SignUpFormDto form, HttpServletResponse response, PrintWriter out) {
+    public boolean signup(SignUpFormDto form, HttpServletRequest request, HttpServletResponse response, PrintWriter out) {
+        HttpSession session = request.getSession();
+
         boolean isSignUp = false;
 
         String newId = form.getId();
@@ -75,9 +81,9 @@ public class UserServiceImpl implements UserService {
             User newUser = new User(newId, encodedPassword, newName, "");
             userRepository.save(newUser);
 
-            response.addCookie(makeCookie("id", newUser.getId(), 600));
-            response.addCookie(makeCookie("name", newUser.getName(), 600));
-            response.addCookie(makeCookie("permission", newUser.getPermission(), 600));
+            session.setAttribute("id", newUser.getId());
+            session.setAttribute("name", newUser.getName());
+            session.setAttribute("permission", newUser.getPermission());
 
             TimeUtil logTime = TimeUtil.getInstance();
             System.out.println(logTime.getLogTime() + newId + "(" + newName + ") 회원가입");
@@ -91,13 +97,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isIdDuplication(String id){
         return userRepository.existsById(id);
-    }
-
-    public Cookie makeCookie(String name, String value, int maxAge) {
-        Cookie cookie = new Cookie(name, value);
-        cookie.setMaxAge(maxAge);
-        cookie.setPath("/");
-        return cookie;
     }
 
     public String makeScript(String content, String url) {

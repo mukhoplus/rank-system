@@ -3,7 +3,9 @@ package com.mukho.ranksystem.Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.mukho.ranksystem.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +30,11 @@ public class LoginController {
 	}
 
 	@PostMapping
-	public ResponseEntity<?> login(@ModelAttribute LoginFormDto form, HttpServletResponse response) throws IOException {
-
+	public ResponseEntity<?> login(@ModelAttribute LoginFormDto form, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		boolean isLogin = userService.login(form, response, out);
+		boolean isLogin = userService.login(form, request, response, out);
 
 		out.flush();
 		out.close();

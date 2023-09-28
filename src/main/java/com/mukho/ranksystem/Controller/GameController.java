@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.mukho.ranksystem.Service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,21 +36,11 @@ public class GameController {
 	@PostMapping
 	public ResponseEntity<?> addGame(@ModelAttribute AddGameFormDto form, HttpServletRequest request,
 		HttpServletResponse response) throws IOException {
+		HttpSession session = request.getSession();
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String writer = "";
-
-		if (request.getCookies() != null) {
-			Cookie[] currentCookies = request.getCookies();
-
-			for (Cookie c : currentCookies) {
-				if (c.getName().equals("id")) {
-					writer = c.getValue();
-					break;
-				}
-			}
-		}
+		String writer = session.getAttribute("id").toString();
 
 		String output = gameService.addGame(form, writer);
 		out.println(makeScript(output + " 전적이 추가되었습니다."));

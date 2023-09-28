@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,33 +20,25 @@ public class HelloController {
 
 	@GetMapping
 	public ResponseEntity<UserInfoDto> hello(HttpServletRequest request) throws IOException {
+		HttpSession session = request.getSession();
 
 		String curId = "";
 		String curName = "";
 		String curPermission = "";
 
-		if (request.getCookies() != null) {
+		UserInfoDto userInfo;
 
-			Cookie[] currentCookies = request.getCookies();
-
-			for (Cookie c : currentCookies) {
-				if (c.getName().equals("id")) {
-					curId = c.getValue();
-					continue;
-				}
-
-				if (c.getName().equals("name")) {
-					curName = c.getValue();
-					continue;
-				}
-
-				if (c.getName().equals("permission")) {
-					curPermission = c.getValue();
-				}
-			}
+		try {
+			curId = session.getAttribute("id").toString();
+			curName = session.getAttribute("name").toString();
+			curPermission = session.getAttribute("permission").toString();
+		} catch (Exception e) {
+			curId = "";
+			curName = "";
+			curPermission = "";
+		} finally {
+			userInfo = new UserInfoDto(curId, curName, curPermission);
 		}
-
-		UserInfoDto userInfo = new UserInfoDto(curId, curName, curPermission);
 
 		return new ResponseEntity<>(userInfo, HttpStatus.OK);
 	}

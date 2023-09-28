@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.mukho.ranksystem.Service.GamerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,22 +36,11 @@ public class GamerController {
 	@PostMapping
 	public ResponseEntity<?> addGamer(@ModelAttribute AddGamerFormDto form, HttpServletRequest request,
 		HttpServletResponse response) throws IOException {
-
+		HttpSession session = request.getSession();
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		String adder = "";
-
-		if (request.getCookies() != null) {
-			Cookie[] currentCookies = request.getCookies();
-
-			for (Cookie c : currentCookies) {
-				if (c.getName().equals("id")) {
-					adder = c.getValue();
-					break;
-				}
-			}
-		}
+		String adder = session.getAttribute("id").toString();
 
 		boolean isAdd = gamerService.addGamer(form, adder, out);
 

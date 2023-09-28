@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.mukho.ranksystem.Service.UserService;
@@ -31,13 +32,13 @@ public class SignUpController {
 	}
 
 	@PostMapping
-	public ResponseEntity<?> signup(@ModelAttribute SignUpFormDto form, HttpServletResponse response) throws
+	public ResponseEntity<?> signup(@ModelAttribute SignUpFormDto form, HttpServletRequest request, HttpServletResponse response) throws
 		IOException {
 
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 
-		boolean isSignUp = userService.signup(form, response, out);
+		boolean isSignUp = userService.signup(form, request, response, out);
 
 		out.flush();
 		out.close();
