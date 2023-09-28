@@ -2,43 +2,39 @@ package com.mukho.ranksystem.Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mukho.ranksystem.Service.GamerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.mukho.ranksystem.Dto.AddGamerFormDto;
-import com.mukho.ranksystem.Model.Gamer;
-import com.mukho.ranksystem.Repository.GamerRepository;
-import com.mukho.ranksystem.Utils.TimeUtil;
 
 @RestController
 @RequestMapping(value = "/gamer")
 public class GamerController {
 
-	private GamerRepository gamerRepository;
+	private GamerService gamerService;
 
 	@Autowired
-	public GamerController(GamerRepository gamerRepository) {
-		this.gamerRepository = gamerRepository;
+	public GamerController(GamerService gamerService) {
+		this.gamerService = gamerService;
 	}
 
 	@GetMapping
-	public ResponseEntity<List> getGamers() {
-		return new ResponseEntity<>(gamerRepository.findNameList(), HttpStatus.OK);
+	public ResponseEntity<List<String>> getGamers() {
+		return new ResponseEntity<>(gamerService.getGamers(), HttpStatus.OK);
 	}
 
 	@PostMapping
 	public ResponseEntity<?> addGamer(@ModelAttribute AddGamerFormDto form, HttpServletRequest request,
 		HttpServletResponse response) throws IOException {
-		boolean isAdd = false;
 
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
@@ -56,37 +52,16 @@ public class GamerController {
 			}
 		}
 
-		String inputName = form.getName();
+		boolean isAdd = gamerService.addGamer(form, adder, out);
 
-		if (inputName == null || inputName.equals("")) {
-			out.println(makeScript("이름를 입력해주세요."));
-		} else if (gamerRepository.existsByName(inputName)) {
-			out.println(makeScript("이미 등록된 선수입니다."));
-		} else {
-			String[] races = {"Terran", "Protoss", "Zerg"};
-
-			for (String race : races) {
-				Gamer gamer = new Gamer(inputName, race);
-				gamerRepository.save(gamer);
-			}
-
-			TimeUtil logTime = TimeUtil.getInstance();
-			System.out.println(logTime.getLogTime() + inputName + " 선수 추가(" + adder + ")");
-			out.println("<script>alert('" + inputName + " 선수가 추가되었습니다.'); location.href='/';</script>");
-			isAdd = true;
-		}
 		out.flush();
 		out.close();
 
 		if (isAdd) {
-			return new ResponseEntity<>(true, HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-	}
-
-	public String makeScript(String content) {
-		return "\"<script>alert('" + content + "'); location.href='/addgamer';</script>\"";
 	}
 
 }

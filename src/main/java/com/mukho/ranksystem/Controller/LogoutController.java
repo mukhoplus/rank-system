@@ -19,7 +19,7 @@ import com.mukho.ranksystem.Utils.TimeUtil;
 public class LogoutController {
 
 	@DeleteMapping
-	public ResponseEntity<Boolean> logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setContentType("text/html; charset=UTF-8");
 
 		if (request.getCookies() != null) {
@@ -46,9 +46,9 @@ public class LogoutController {
 			response.addCookie(delCookie("name", null));
 			response.addCookie(delCookie("permission", null));
 
-			return new ResponseEntity<>(true, HttpStatus.OK);
+			return new ResponseEntity<>(HttpStatus.OK);
 		} else {
-			return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
