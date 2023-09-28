@@ -5,6 +5,7 @@ import com.mukho.ranksystem.Dto.SignUpFormDto;
 import com.mukho.ranksystem.Model.User;
 import com.mukho.ranksystem.Utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.mukho.ranksystem.Repository.UserRepository;
@@ -18,10 +19,12 @@ import java.io.PrintWriter;
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -40,7 +43,7 @@ public class UserServiceImpl implements UserService {
         } else {
             User cmpUser = userRepository.findById(inputId);
 
-            if (!inputPassword.equals(cmpUser.getPassword())) {
+            if (!passwordEncoder.matches(inputPassword, cmpUser.getPassword())) {
                 out.println(makeScript("아이디 또는 비밀번호를 잘못 입력했습니다.", "login"));
             } else {
                 response.addCookie(makeCookie("id", cmpUser.getId(), 1200));
@@ -68,7 +71,8 @@ public class UserServiceImpl implements UserService {
         if (userRepository.existsById(newId)) {
             out.println("<script>alert('중복된 아이디입니다.'); location.href='/signup';</script>");
         } else {
-            User newUser = new User(newId, newPassword, newName, "");
+            String encodedPassword = passwordEncoder.encode(newPassword);
+            User newUser = new User(newId, encodedPassword, newName, "");
             userRepository.save(newUser);
 
             response.addCookie(makeCookie("id", newUser.getId(), 600));
