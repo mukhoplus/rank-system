@@ -9,8 +9,12 @@ import com.mukho.ranksystem.Service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private UserRepository userRepository;
+
     @Autowired
-    public UserRepository userRepository;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public boolean isIdDuplication(String id){
         return userRepository.existsById(id);

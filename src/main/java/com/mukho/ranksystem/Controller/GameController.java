@@ -2,6 +2,7 @@ package com.mukho.ranksystem.Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -10,10 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.mukho.ranksystem.Dto.AddGameFormDto;
 import com.mukho.ranksystem.Model.Game;
@@ -23,16 +21,21 @@ import com.mukho.ranksystem.Repository.GamerRepository;
 import com.mukho.ranksystem.Utils.TimeUtil;
 
 @RestController
-@RequestMapping(value = "/addgame")
-public class AddGameController {
+@RequestMapping(value = "/game")
+public class GameController {
 
 	private GameRepository gameRepository;
 	private GamerRepository gamerRepository;
 
 	@Autowired(required = false)
-	public AddGameController(GameRepository gameRepository, GamerRepository gamerRepository) {
+	public GameController(GameRepository gameRepository, GamerRepository gamerRepository) {
 		this.gameRepository = gameRepository;
 		this.gamerRepository = gamerRepository;
+	}
+
+	@GetMapping
+	public ResponseEntity<List> getGames() {
+		return new ResponseEntity<>(gameRepository.getGames(), HttpStatus.OK);
 	}
 
 	@PostMapping

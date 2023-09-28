@@ -2,6 +2,9 @@ package com.mukho.ranksystem.Controller;
 
 import java.util.List;
 
+import com.mukho.ranksystem.Dto.NameRankDto;
+import com.mukho.ranksystem.Repository.NameRankingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +19,13 @@ import com.mukho.ranksystem.Repository.RankingRepository;
 public class RankingController {
 
 	private RankingRepository rankingRepository;
+	private NameRankingRepository nameRankingRepository;
 
-	public RankingController(RankingRepository rankingRepository) {
+
+	@Autowired
+	public RankingController(RankingRepository rankingRepository, NameRankingRepository nameRankingRepository) {
 		this.rankingRepository = rankingRepository;
+		this.nameRankingRepository = nameRankingRepository;
 	}
 
 	/**
@@ -30,6 +37,11 @@ public class RankingController {
 	@GetMapping
 	public ResponseEntity<List<RankDto>> getRanking() {
 		return new ResponseEntity<>(rankingRepository.getRanking(), HttpStatus.OK);
+	}
+
+	@GetMapping("/name")
+	public ResponseEntity<List<NameRankDto>> getNameRanking() {
+		return new ResponseEntity<>(nameRankingRepository.getNameRanking(), HttpStatus.OK);
 	}
 
 }

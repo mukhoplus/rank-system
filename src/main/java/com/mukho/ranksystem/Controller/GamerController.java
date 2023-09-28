@@ -2,6 +2,8 @@ package com.mukho.ranksystem.Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -10,10 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.mukho.ranksystem.Dto.AddGamerFormDto;
 import com.mukho.ranksystem.Model.Gamer;
@@ -21,14 +20,19 @@ import com.mukho.ranksystem.Repository.GamerRepository;
 import com.mukho.ranksystem.Utils.TimeUtil;
 
 @RestController
-@RequestMapping(value = "/addgamer")
-public class AddGamerController {
+@RequestMapping(value = "/gamer")
+public class GamerController {
 
 	private GamerRepository gamerRepository;
 
 	@Autowired
-	public AddGamerController(GamerRepository gamerRepository) {
+	public GamerController(GamerRepository gamerRepository) {
 		this.gamerRepository = gamerRepository;
+	}
+
+	@GetMapping
+	public ResponseEntity<List> getGamers() {
+		return new ResponseEntity<>(gamerRepository.findNameList(), HttpStatus.OK);
 	}
 
 	@PostMapping
