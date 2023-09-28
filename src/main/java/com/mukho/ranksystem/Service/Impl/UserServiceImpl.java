@@ -2,7 +2,9 @@ package com.mukho.ranksystem.Service.Impl;
 
 import com.mukho.ranksystem.Dto.LoginFormDto;
 import com.mukho.ranksystem.Dto.SignUpFormDto;
+import com.mukho.ranksystem.Dto.UserInfoDto;
 import com.mukho.ranksystem.Model.User;
+import com.mukho.ranksystem.Projection.UserInfoProjection;
 import com.mukho.ranksystem.Utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,11 +13,12 @@ import org.springframework.stereotype.Service;
 import com.mukho.ranksystem.Repository.UserRepository;
 import com.mukho.ranksystem.Service.UserService;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import java.io.PrintWriter;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -92,6 +95,16 @@ public class UserServiceImpl implements UserService {
         }
 
         return isSignUp;
+    }
+
+    @Override
+    public List<UserInfoProjection> getUsers() {
+        return userRepository.getUsers();
+    }
+
+    @Override
+    public int updateUser(UserInfoDto info) {
+        return userRepository.updateUser(info.getId(), info.getPermission());
     }
 
     @Override

@@ -6,7 +6,7 @@ public class UserInfoDto {
 
 	private String name;
 
-	private String permission = "false";
+	private String permission = "";
 
 	public UserInfoDto() {
 
