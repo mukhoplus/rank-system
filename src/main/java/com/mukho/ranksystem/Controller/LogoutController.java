@@ -23,6 +23,7 @@ public class LogoutController {
 	public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
 		response.setContentType("text/html; charset=UTF-8");
+
 		try {
 			String curId = session.getAttribute("id").toString();
 			String curName = session.getAttribute("name").toString();
@@ -30,10 +31,11 @@ public class LogoutController {
 			TimeUtil logTime = TimeUtil.getInstance();
 			System.out.println(logTime.getLogTime() + curId + "(" + curName + ") 로그아웃");
 
-			session.invalidate();
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		} finally {
+			session.invalidate();
 		}
 	}
 
