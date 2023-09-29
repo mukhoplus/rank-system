@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/r")
 public class RecordController {
 
-	private RecordService recordService;
+	private final RecordService recordService;
 
 	@Autowired
 	public RecordController(RecordService recordService) {

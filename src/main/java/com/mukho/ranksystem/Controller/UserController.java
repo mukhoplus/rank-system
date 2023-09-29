@@ -1,9 +1,11 @@
 package com.mukho.ranksystem.Controller;
 
 import com.mukho.ranksystem.Dto.UserInfoDto;
-import com.mukho.ranksystem.Projection.UserInfoProjection;
+import com.mukho.ranksystem.Dto.Projection.UserInfoProjection;
 import com.mukho.ranksystem.Service.UserService;
+import com.mukho.ranksystem.Utils.LogUtil;
 import com.mukho.ranksystem.Utils.TimeUtil;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,12 +35,17 @@ public class UserController {
             String name = info.getName();
             String permission = info.getPermission();
 
-            if (permission.equals("")) permission = "일반 사용자";
-            else if(permission.equals("special")) permission = "관리자";
-            else if(permission.equals("master")) permission = "운영자";
+            permission = switch (permission) {
+                case "" -> "일반 사용자";
+                case "special" -> "관리자";
+                case "master" -> "운영자";
+                default -> info.getPermission();
+            };
 
             TimeUtil logTime = TimeUtil.getInstance();
-            System.out.println(logTime.getLogTime() + id + "(" + name + ")의 권한 변경(" + permission + ")");
+            Logger logger = LogUtil.getInstance();
+
+            logger.info(logTime.getLogTime() + id + "(" + name + ")의 권한 변경(" + permission + ")");
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.badRequest().build();

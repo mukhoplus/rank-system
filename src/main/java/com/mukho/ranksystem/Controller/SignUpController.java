@@ -3,7 +3,6 @@ package com.mukho.ranksystem.Controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mukho.ranksystem.Dto.SignUpFormDto;
-import com.mukho.ranksystem.Model.User;
-import com.mukho.ranksystem.Utils.TimeUtil;
 
 @RestController
 @RequestMapping(value = "/signup")

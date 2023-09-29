@@ -3,7 +3,7 @@ package com.mukho.ranksystem.Service;
 import com.mukho.ranksystem.Dto.LoginFormDto;
 import com.mukho.ranksystem.Dto.SignUpFormDto;
 import com.mukho.ranksystem.Dto.UserInfoDto;
-import com.mukho.ranksystem.Projection.UserInfoProjection;
+import com.mukho.ranksystem.Dto.Projection.UserInfoProjection;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

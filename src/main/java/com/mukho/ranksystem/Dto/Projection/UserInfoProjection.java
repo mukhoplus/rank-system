@@ -1,4 +1,4 @@
-package com.mukho.ranksystem.Projection;
+package com.mukho.ranksystem.Dto.Projection;
 
 public interface UserInfoProjection {
     String getId();

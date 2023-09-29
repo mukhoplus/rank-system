@@ -1,7 +1,6 @@
 package com.mukho.ranksystem.Repository;
 
-import com.mukho.ranksystem.Dto.UserInfoDto;
-import com.mukho.ranksystem.Projection.UserInfoProjection;
+import com.mukho.ranksystem.Dto.Projection.UserInfoProjection;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

@@ -6,7 +6,9 @@ import com.mukho.ranksystem.Model.Gamer;
 import com.mukho.ranksystem.Repository.GameRepository;
 import com.mukho.ranksystem.Repository.GamerRepository;
 import com.mukho.ranksystem.Service.GameService;
+import com.mukho.ranksystem.Utils.LogUtil;
 import com.mukho.ranksystem.Utils.TimeUtil;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +59,9 @@ public class GameServiceImpl implements GameService {
 
         String output = winUser + "(" + winRace + "):" + loseUser + "(" + loseRace + ")";
         TimeUtil logTime = TimeUtil.getInstance();
-        System.out.println(logTime.getLogTime() + output + " 전적 추가(" + writer + ")");
+        Logger logger = LogUtil.getInstance();
+
+        logger.info(logTime.getLogTime() + output + " 전적 추가(" + writer + ")");
 
         return output;
     }

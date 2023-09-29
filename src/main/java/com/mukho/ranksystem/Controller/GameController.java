@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.mukho.ranksystem.Model.Game;
 import com.mukho.ranksystem.Service.GameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +29,7 @@ public class GameController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List> getGames() {
+	public ResponseEntity<List<Game>> getGames() {
 		return new ResponseEntity<>(gameService.getGames(), HttpStatus.OK);
 	}
 

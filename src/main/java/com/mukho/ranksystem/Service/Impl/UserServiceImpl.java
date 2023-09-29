@@ -4,8 +4,10 @@ import com.mukho.ranksystem.Dto.LoginFormDto;
 import com.mukho.ranksystem.Dto.SignUpFormDto;
 import com.mukho.ranksystem.Dto.UserInfoDto;
 import com.mukho.ranksystem.Model.User;
-import com.mukho.ranksystem.Projection.UserInfoProjection;
+import com.mukho.ranksystem.Dto.Projection.UserInfoProjection;
+import com.mukho.ranksystem.Utils.LogUtil;
 import com.mukho.ranksystem.Utils.TimeUtil;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,6 @@ import com.mukho.ranksystem.Service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -58,7 +59,9 @@ public class UserServiceImpl implements UserService {
                 session.setAttribute("permission", cmpUser.getPermission());
 
                 TimeUtil logTime = TimeUtil.getInstance();
-                System.out.println(logTime.getLogTime() + cmpUser.getId() + "(" + cmpUser.getName() + ") 로그인");
+                Logger logger = LogUtil.getInstance();
+
+                logger.info(logTime.getLogTime() + cmpUser.getId() + "(" + cmpUser.getName() + ") 로그인");
                 out.println("<script>alert('" + cmpUser.getName() + "님 반갑습니다!'); location.href='/';</script>");
                 isLogin = true;
             }
@@ -89,7 +92,9 @@ public class UserServiceImpl implements UserService {
             session.setAttribute("permission", newUser.getPermission());
 
             TimeUtil logTime = TimeUtil.getInstance();
-            System.out.println(logTime.getLogTime() + newId + "(" + newName + ") 회원가입");
+            Logger logger = LogUtil.getInstance();
+
+            logger.info(logTime.getLogTime() + newId + "(" + newName + ") 회원가입");
             out.println("<script>alert('회원가입이 완료되었습니다.'); location.replace('/');</script>");
             isSignUp = true;
         }

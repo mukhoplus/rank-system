@@ -4,7 +4,9 @@ import com.mukho.ranksystem.Dto.AddGamerFormDto;
 import com.mukho.ranksystem.Model.Gamer;
 import com.mukho.ranksystem.Repository.GamerRepository;
 import com.mukho.ranksystem.Service.GamerService;
+import com.mukho.ranksystem.Utils.LogUtil;
 import com.mukho.ranksystem.Utils.TimeUtil;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +47,9 @@ public class GamerServiceImpl implements GamerService {
             }
 
             TimeUtil logTime = TimeUtil.getInstance();
-            System.out.println(logTime.getLogTime() + inputName + " 선수 추가(" + adder + ")");
+            Logger logger = LogUtil.getInstance();
+
+            logger.info(logTime.getLogTime() + inputName + " 선수 추가(" + adder + ")");
             out.println("<script>alert('" + inputName + " 선수가 추가되었습니다.'); location.href='/';</script>");
             isAdd = true;
         }
