@@ -32,7 +32,7 @@ jobs:
           job-status: success
           distribution: adopt
       - name: Google Cloud SDK
-        uses: GoogleCloudPlatform/github-actions/setup-gcloud@vX.Y.Z
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@v1
         with:
           service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
           project_id: espers-starcraft-ranking
