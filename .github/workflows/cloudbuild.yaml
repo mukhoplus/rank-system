@@ -1,3 +1,7 @@
+options:
+  logging: CLOUD_LOGGING_ONLY
+logsBucket: gs://rank-system
+
 steps:
   # 1. Git submodule 업데이트
   - name: 'gcr.io/cloud-builders/git'
