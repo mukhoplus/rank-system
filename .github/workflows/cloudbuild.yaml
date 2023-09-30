@@ -1,6 +1,5 @@
 options:
   logging: LEGACY
-logsBucket: gs://rank-system
 
 steps:
   # 1. Git submodule 업데이트
