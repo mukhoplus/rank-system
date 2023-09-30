@@ -30,7 +30,7 @@ jobs:
         run: ./gradlew clean build -x test
       - name: Deploy Project
         run: |
-          java -jar build/libs/rank-system-2.0.0-SNAPSHOT.jar \
+          nohup java -jar build/libs/rank-system-2.0.0-SNAPSHOT.jar \
             --spring.datasource.url="jdbc:mysql://34.83.157.18:3306/rank_system?characterEncoding=UTF-8&serverTimezone=Asia/Seoul"
             --spring.datasource.username=mukho
             --spring.datasource.password=mukho123!@
