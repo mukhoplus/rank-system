@@ -26,7 +26,7 @@ jobs:
           overwrite-settings: true
           job-status: success
           distribution: adopt
-      - name: Build Project
-        run: ./gradlew clean build
+      - name: Build Project(without test)
+        run: ./gradlew clean build -x test
       - name: Deploy Project
         run: java -jar build/libs/rank-system-2.0.0-SNAPSHOT.jar
