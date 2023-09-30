@@ -10,6 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Build React
+        run: |
+          # Initialize the frontend submodule
+          git submodule update --init --recursive
+
+          # Build the frontend
+          cd src/main/frontend
+          npm install
+          npm run build
       - name: Install Java
         uses: actions/setup-java@v2
         with:
