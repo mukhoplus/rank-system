@@ -30,3 +30,7 @@ jobs:
         run: ./gradlew clean build -x test
       - name: Deploy Project
         run: java -jar build/libs/rank-system-2.0.0-SNAPSHOT.jar
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
