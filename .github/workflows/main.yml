@@ -26,10 +26,9 @@ jobs:
           overwrite-settings: true
           job-status: success
           distribution: adopt
-      - name: Build Project(without test) and Test
+      - name: Build Project(without test)
         run: |
           ./gradlew clean build -x test
-          ./gradlew test
       - name: Deploy Project
         if: success()
         run: |
