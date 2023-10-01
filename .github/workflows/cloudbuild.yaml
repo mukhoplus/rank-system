@@ -38,7 +38,10 @@ jobs:
     - name: Deploy to Google App Engine
       id: deploy_app_engine
       run: |
-        java -jar build/libs/rank-system-2.0.0-SNAPSHOT.jar
+        java -jar build/libs/rank-system-2.0.0-SNAPSHOT.jar \
+        --spring.datasource.url=${{ secrets.DB_URL }}
+        --spring.datasource.username=${{ secrets.DB_USERNAME }}
+        --spring.datasource.password=${{ secrets.DB_PASSWORD }} &
       env:
         GOOGLE_CLOUD_PROJECT: ${{ secrets.PROJECT_ID }}
         GOOGLE_CLOUD_KEYFILE_JSON: ${{ secrets.GCP_SA_KEY }}
