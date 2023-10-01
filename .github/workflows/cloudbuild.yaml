@@ -1,3 +1,10 @@
+name: Deploy to Google App Engine
+
+on:
+  push:
+    branches:
+      - master
+      
 steps:
 - name: Checkout Code
   id: checkout_code
