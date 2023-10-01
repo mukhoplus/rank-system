@@ -1,29 +1,33 @@
-options:
-  logging: LEGACY
-logsBucket: gs://rank-system
-
 steps:
-  # 1. Git submodule 업데이트
-  - name: 'gcr.io/cloud-builders/git'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        git submodule update --init --recursive
+- name: Checkout Code
+  id: checkout_code
+  uses: actions/checkout@v2
 
-  # 2. Java 설치
-  - name: 'gcr.io/cloud-builders/java'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        apt-get update -q && \
-        apt-get install -y openjdk-17-jdk
+- name: Build React
+  run: |
+    git submodule update --init --recursive
 
-  # 3. 프로젝트 빌드 (테스트를 제외한 빌드)
-  - name: 'gcr.io/cloud-builders/gradle'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        ./gradlew clean build -x test
+- name: Set up Java
+  uses: actions/setup-java@v2
+  with:
+    java-version: 17
+    java-package: jdk
+    architecture: x64
+    check-latest: false
+    server-id: github
+    server-username: ${{ github.actor }}
+    server-password: ${{ secrets.GITHUB_TOKEN }}
+    overwrite-settings: true
+    job-status: success
+    distribution: adopt
+
+- name: Build Project (without tests)
+  run: |
+    ./gradlew clean build -x test
+
+- name: Deploy to Google App Engine
+  id: deploy_app_engine
+  run: echo "Deployment to Google App Engine goes here"
+  env:
+    GOOGLE_CLOUD_PROJECT: ${{ secrets.PROJECT_ID }}
+    GOOGLE_CLOUD_KEYFILE_JSON: ${{ secrets.GCP_SA_KEY }}
