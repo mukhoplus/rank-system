@@ -35,7 +35,7 @@ jobs:
         run: |
           ./gradlew clean build -x test
       - name: Publish app to Google App Engine
-        uses: zxyle/publish-gae-action@v2.3.0
+        uses: zxyle/publish-gae-action@vmaster
         with:
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           service_account_email: ${{ secrets.GCP_SA_EMAIL }}
