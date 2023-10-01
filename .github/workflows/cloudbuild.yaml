@@ -41,5 +41,3 @@ jobs:
       env:
         GOOGLE_CLOUD_PROJECT: ${{ secrets.PROJECT_ID }}
         GOOGLE_CLOUD_KEYFILE_JSON: ${{ secrets.GCP_SA_KEY }}
-
-    priority: 1
