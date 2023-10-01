@@ -31,11 +31,6 @@ jobs:
           overwrite-settings: true
           job-status: success
           distribution: adopt
-      - name: Google Cloud SDK
-        uses: GoogleCloudPlatform/github-actions/setup-gcloud@v3
-        with:
-          service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
-          project_id: espers-starcraft-ranking
       - name: Build Project(without test)
         run: |
           ./gradlew clean build -x test
