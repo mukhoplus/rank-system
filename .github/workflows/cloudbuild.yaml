@@ -1,44 +1,18 @@
 name: Deploy to Google App Engine
 
-on:
-  push:
-    branches:
-      - master
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout Code
-      id: checkout_code
-      uses: actions/checkout@v2
-    
-    - name: Build React
-      run: |
-        git submodule update --init --recursive
-    
-    - name: Set up Java
-      uses: actions/setup-java@v2
-      with:
-        java-version: 17
-        java-package: jdk
-        architecture: x64
-        check-latest: false
-        server-id: github
-        server-username: ${{ github.actor }}
-        server-password: ${{ secrets.GITHUB_TOKEN }}
-        overwrite-settings: true
-        job-status: success
-        distribution: adopt
-    
-    - name: Build Project (without tests)
-      run: |
-        ./gradlew clean build -x test
-    
-    - name: Deploy to Google App Engine
-      id: deploy_app_engine
-      run: |
-        java -jar build/libs/rank-system-2.0.0-SNAPSHOT.jar &
-      env:
-        GOOGLE_CLOUD_PROJECT: ${{ secrets.PROJECT_ID }}
-        GOOGLE_CLOUD_KEYFILE_JSON: ${{ secrets.GCP_SA_KEY }}
+steps:
+  - name: Build Project (without tests)
+    dir: /workspace/rank-system  # 작업 디렉토리 설정
+    entrypoint: ./gradlew
+    args:
+      - clean
+      - build
+      - -x
+      - test
+
+  - name: Deploy to Google App Engine
+    dir: /workspace/rank-system/build/libs  # 작업 디렉토리 설정
+    entrypoint: java
+    args:
+      - -jar
+      - rank-system-2.0.0-SNAPSHOT.jar
