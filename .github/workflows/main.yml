@@ -45,4 +45,5 @@ jobs:
           
       - name: Deploy Project
         run: |
-          gcloud app deploy ./build/libs/rank-system-2.0.0-SNAPSHOT.jar --version=your-version-name --quiet
+          gcloud auth activate-service-account --key-file=${{ secrets.GCP_SA_KEY }}
+          gcloud app deploy ./build/libs/rank-system-2.0.0-SNAPSHOT.jar --version=v2 --quiet
