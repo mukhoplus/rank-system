@@ -48,9 +48,5 @@ jobs:
           echo '${{ secrets.GCP_SA_KEY }}' > key.json
           gcloud config set project ${{ secrets.PROJECT_ID }}
           gcloud auth activate-service-account --key-file=key.json --verbosity=debug
-          gcloud config get-value project
-          gcloud config configurations list
-          gcloud auth list
-          gcloud app regions list
           gcloud app create --region=us-west1
           gcloud app deploy ./build/libs/rank-system-2.0.0-SNAPSHOT.jar --version=v2 --quiet
