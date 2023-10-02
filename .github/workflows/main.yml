@@ -34,6 +34,8 @@ jobs:
       
       - name: Build Project(without test)
         run: |
+          echo "spring.datasource.url=jdbc:mysql://34.83.157.18:3306/rank_system" >> src/main/resources/application.properties
+          
           ./gradlew clean build -x test
           
       - name: Publish app to Google App Engine
