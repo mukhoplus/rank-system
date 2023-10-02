@@ -14,13 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Publish app to Google App Engine
-        uses: zxyle/publish-gae-action@v2.3.0
-        with:
-          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
-          project_id: ${{ secrets.PROJECT_ID }}
-
       - uses: actions/checkout@v2
       - name: Build React
         run: |
@@ -42,6 +35,13 @@ jobs:
       - name: Build Project(without test)
         run: |
           ./gradlew clean build -x test
+      
+      - name: Publish app to Google App Engine
+        uses: zxyle/publish-gae-action@v2.3.0
+        with:
+          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: ${{ secrets.PROJECT_ID }}
           
       - name: Deploy Project
         run: |
@@ -50,3 +50,4 @@ jobs:
           gcloud auth activate-service-account --key-file=key.json --verbosity=debug
           # gcloud app create --region=us-west1
           gcloud app deploy ./build/libs/rank-system-2.0.0-SNAPSHOT.jar --version=v2 --quiet
+          
