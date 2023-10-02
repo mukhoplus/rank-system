@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    @Query(value = "SELECT u.id, u.name, u.permission FROM User u WHERE u.permission != 'master'", nativeQuery = true)
+    @Query(value = "SELECT u.id, u.name, u.permission FROM user u WHERE u.permission != 'master'", nativeQuery = true)
     List<UserInfoProjection> getUsers();
 
     @Modifying
