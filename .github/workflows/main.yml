@@ -31,10 +31,6 @@ jobs:
           overwrite-settings: true
           job-status: success
           distribution: adopt
-          
-      - name: Build Project(without test)
-        run: |
-          ./gradlew clean build -x test
       
       - name: Publish app to Google App Engine
         uses: zxyle/publish-gae-action@v2.3.0
@@ -42,7 +38,11 @@ jobs:
           service_account_email: ${{ secrets.GCP_SA_EMAIL }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           project_id: ${{ secrets.PROJECT_ID }}
-          
+
+      - name: Build Project(without test)
+        run: |
+          ./gradlew clean build -x test
+      
       - name: Deploy Project
         run: |
           echo '${{ secrets.GCP_SA_KEY }}' > key.json
