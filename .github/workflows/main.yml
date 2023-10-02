@@ -42,7 +42,4 @@ jobs:
           project_id: ${{ secrets.PROJECT_ID }}
       - name: Deploy Project
         run: |
-          nohup java -jar build/libs/rank-system-2.0.0-SNAPSHOT.jar \
-          --spring.datasource.url=${{ secrets.DB_URL }} \
-          --spring.datasource.username=${{ secrets.DB_USERNAME }} \
-          --spring.datasource.password=${{ secrets.DB_PASSWORD }} &
+          gcloud app deploy ./build/libs/rank-system-2.0.0-SNAPSHOT.jar --version=your-version-name
