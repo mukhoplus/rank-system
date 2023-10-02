@@ -34,6 +34,13 @@ jobs:
       - name: Build Project(without test)
         run: |
           ./gradlew clean build -x test
+      - name: Authenticate with Google Cloud
+        run: |
+          echo ${{ secrets.GCP_SA_KEY }} > key.json
+          gcloud auth activate-service-account --key-file=key.json
+          gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: key.json
       - name: Publish app to Google App Engine
         uses: zxyle/publish-gae-action@v2.3.0
         with:
