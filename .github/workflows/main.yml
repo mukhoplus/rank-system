@@ -45,7 +45,7 @@ jobs:
           
       - name: Deploy Project
         run: |
-          echo ${{ secrets.GCP_SA_KEY }} > key.json
+          echo "${{ secrets.GCP_SA_KEY }}" > key.json
           cat key.json
-          gcloud auth activate-service-account --key-file=key.json
+          gcloud auth activate-service-account --key-file=key.json  --verbosity=debug
           gcloud app deploy ./build/libs/rank-system-2.0.0-SNAPSHOT.jar --version=v2 --quiet
