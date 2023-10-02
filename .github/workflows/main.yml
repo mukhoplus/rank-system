@@ -14,12 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - name: Build React
         run: |
           git submodule update --init --recursive
       - name: Install Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v2
         with:
           java-version: 17
           java-package: jdk
@@ -31,9 +31,11 @@ jobs:
           overwrite-settings: true
           job-status: success
           distribution: adopt
+          
       - name: Build Project(without test)
         run: |
           ./gradlew clean build -x test
+          
       - name: Authenticate with Google Cloud
         run: |
           echo ${{ secrets.GCP_SA_KEY }} > key.json
@@ -41,12 +43,14 @@ jobs:
           gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
         env:
           GOOGLE_APPLICATION_CREDENTIALS: key.json
+          
       - name: Publish app to Google App Engine
         uses: zxyle/publish-gae-action@v2.3.0
         with:
           service_account_email: ${{ secrets.GCP_SA_EMAIL }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           project_id: ${{ secrets.PROJECT_ID }}
+          
       - name: Deploy Project
         run: |
-          gcloud app deploy ./build/libs/rank-system-2.0.0-SNAPSHOT.jar --version=your-version-name
+          gcloud app deploy ./build/libs/rank-system-2.0.0-SNAPSHOT.jar --version=your-version-name --quiet
