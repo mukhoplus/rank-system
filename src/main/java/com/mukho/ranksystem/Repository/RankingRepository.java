@@ -13,7 +13,7 @@ public interface RankingRepository extends CrudRepository<RankDto, Long> {
 
     @Query(value = "SELECT name, race, rating, wins, loses, ROUND(100. * wins/(wins+loses), 2) AS win_rate, " +
         "rank() OVER (ORDER BY rating DESC, 100. * wins/(wins+loses) DESC, wins DESC) AS rank_num " +
-        "FROM gamer WHERE wins+loses > 0;", nativeQuery = true)
+        "FROM gamer WHERE wins+loses > 0 OR rating != 1000.00;", nativeQuery = true)
     List<RankDto> getRanking();
 
 }
