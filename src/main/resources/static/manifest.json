@@ -1,5 +1,5 @@
 {
-  "short_name": "ESP",
+  "short_name": "SCRank",
   "name": "ESPers Starcraft Ranking",
   "icons": [
     {
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#6C00E8",
   "background_color": "#ffffff"
 }
