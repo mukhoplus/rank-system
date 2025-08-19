@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/r")
+@RequestMapping("/record")
 public class RecordController {
 
 	private final RecordService recordService;
