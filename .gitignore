@@ -6,6 +6,7 @@ build/
 !**/src/test/**/build/
 src/main/resources/application.properties
 espers-starcraft-ranking-df3ead9e3759.json
+src/main/resources/static/static/
 
 ### STS ###
 .apt_generated
