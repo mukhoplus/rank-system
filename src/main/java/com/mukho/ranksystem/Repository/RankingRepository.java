@@ -11,9 +11,9 @@ import com.mukho.ranksystem.Dto.RankDto;
 @Repository
 public interface RankingRepository extends CrudRepository<RankDto, Long> {
 
-    @Query(value = "SELECT name, race, rating, wins, loses, COALESCE(ROUND(100. * wins / NULLIF(wins+loses, 0), 2), 0) AS win_rate, " +
-        "rank() OVER (ORDER BY rating DESC, 100. * wins/(wins+loses) DESC, wins DESC) AS rank_num " +
-        "FROM gamer WHERE (wins+loses > 0) OR (wins + loses = 0 AND rating != 1000.00);", nativeQuery = true)
+    @Query(value = "SELECT name, race, rating, wins, loses, ROUND(100.0 * win_ratio, 2) AS win_rate, " +
+            "RANK() OVER (ORDER BY rating DESC, win_ratio DESC, wins DESC) AS rank_num FROM gamer " +
+            "WHERE total_games > 0 OR (total_games = 0 AND rating != 1000.00);", nativeQuery = true)
     List<RankDto> getRanking();
 
 }
